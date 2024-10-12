@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telugu to Sanskrit Transliteration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            color: #343a40;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        #output {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Telugu to Sanskrit Transliteration</h1>
+    <form id="transliteration-form">
+        <div class="form-group">
+            <label for="telugu-text">Enter text in Telugu script:</label>
+            <textarea id="telugu-text" class="form-control" rows="4" placeholder="Type here..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-custom btn-block">Transliterate</button>
+    </form>
+    <h2>Transliterated Text:</h2>
+    <p id="output" class="text-muted"></p>
+</div>
+
+<script>
+    document.getElementById('transliteration-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const teluguText = document.getElementById('telugu-text').value;
+        try {
+            const response = await axios.post('/transliterate', { text: teluguText });
+            document.getElementById('output').innerText = response.data.transliterated_text;
+        } catch (error) {
+            console.error("Error during transliteration", error);
+        }
+    });
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
